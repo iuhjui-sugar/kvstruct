@@ -1,0 +1,4 @@
+package hashmap
+
+const SCORE_MAX_SIZE = 18446744073709551615
+const SCORE_MIN_SIZE = 0
