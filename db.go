@@ -30,27 +30,12 @@ func (db *DB) makeDatabase(path string) error {
 	return nil
 }
 
+func (db *DB) Update(fn func(*Tx) error) error {
+	return db.db.Update(func(dbtx *bolt.Tx) error {
+		return fn(newTx(dbtx))
+	})
+}
+
 func (db *DB) Close() error {
 	return db.db.Close()
-}
-
-var (
-	zetKeyPrefix   = []byte{31}
-	zetScorePrefix = []byte{29}
-)
-
-const HashMapPrefix = []byte{0x30}
-
-type HashMap struct {
-	dbtx *bolt.Tx
-}
-
-func (hm *HashMap) Hset(name string, key []byte, value []byte) error {
-
-}
-
-func (db *DB) Hset(name string, key, val []byte) error {
-	return db.DB.Update(func(tx *bolt.Tx) error {
-
-	})
 }
